@@ -81,4 +81,4 @@ You can pass in any number of options from the following defaults:
 
 The plugin supports multiple carousels on a single page and maintains jQuery's chainability so usage should feel pretty familiar but if you do become stuck see the demo or leave me a message.
 
-For more information see: http://richardscarrott.co.uk/posts/view/jquery-carousel-plugin
+More documentation can be found [here](http://richardscarrott.co.uk/posts/view/jquery-carousel-plugin "Richard Scarrott")
