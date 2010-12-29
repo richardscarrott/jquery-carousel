@@ -1,4 +1,5 @@
-This is the basic HTML structure required:
+ï»¿This is the basic HTML structure required:
+------------------------------------------
 <div id="my-carousel">
     <ul>
         <li>
@@ -20,6 +21,7 @@ This is the basic HTML structure required:
 </div>
 
 Here's some CSS to get you going (I've flagged which declarations are required):
+--------------------------------------------------------------------------------
 #my-carousel ul {
     position:absolute; /* required */
     overflow:hidden; /* required */
@@ -60,11 +62,13 @@ Here's some CSS to get you going (I've flagged which declarations are required):
 }
 
 And here's the JavaScript:
+--------------------------
 $(document).ready(function() {
     $('#my-carousel').carousel();
 });
 
 You can pass in any number of options from the following defaults:
+------------------------------------------------------------------
 {
     itemsPerPage: 1, // number of items to show on each page
     itemsPerTransition: 1, // number of items moved with each transition
@@ -75,7 +79,6 @@ You can pass in any number of options from the following defaults:
     easing: 'swing' // supports the jQuery easing plugin
 }
 
-The plugin supports multiple carousels on a single page and maintains jQuery’s chainability so usage should feel pretty familiar but if you do become stuck see the demo or leave me a message.
+The plugin supports multiple carousels on a single page and maintains jQuery's chainability so usage should feel pretty familiar but if you do become stuck see the demo or leave me a message.
 
-For more information see:
-http://richardscarrott.co.uk/posts/view/jquery-carousel-plugin
+For more information see: http://richardscarrott.co.uk/posts/view/jquery-carousel-plugin
