@@ -22,9 +22,6 @@ if (typeof Object.create !== 'function') {
 }
 
 (function($) {
-	// ie alias
-	var headache = $.browser.msie && $.browser.version.substr(0,1)<9;
-
 	// carousel
 	var Carousel = {
 		settings: {
