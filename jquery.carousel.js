@@ -37,7 +37,9 @@ if (typeof Object.create !== 'function') {
 			nextPrevLinks: true,
 			speed: 'normal',
             easing: 'swing',
-            itemChanged: function(){}
+            itemChanged: function () { },
+            prevText: "Prev",
+            nextText: "Next"
 		},
 		init: function(el, options) {
 			if (!el.length) {return false;}
@@ -90,9 +92,11 @@ if (typeof Object.create !== 'function') {
 		},
 		insertNextPrevLinks: function() {
             this.prevLink = $('<a href="#" class="prev"></a>')
+                                .text(this.options.prevText)
 								.bind('click.carousel', $.proxy(this, 'prevItem'))
 								.appendTo(this.container);
             this.nextLink = $('<a href="#" class="next"></a>')
+                                .text(this.options.nextText)
 								.bind('click.carousel', $.proxy(this, 'nextItem'))
 								.appendTo(this.container);
 		},
@@ -106,16 +110,6 @@ if (typeof Object.create !== 'function') {
 			this.animate();
 			return false;
 		},
-        checkForEnd: function () {
-            if (this.options.nextPrevLinks) {
-                if (this.itemIndex === (this.noOfItems - this.options.itemsPerPage)) {
-                    alert("THIS IS THE END!");
-                }
-                else if (this.itemIndex === 0) {
-                    alert("NO MORE! NO MORE!");
-                }
-            }
-        },
 		updateBtnStyles: function() {
 			if (this.options.pagination) {
 				this.paginationLinks
