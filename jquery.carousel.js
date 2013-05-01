@@ -1,4 +1,6 @@
 /*
+ * FORKED VERSION - Tom Halligan
+ *	
  * jQuery Carousel Plugin v1.0
  * http://richardscarrott.co.uk/posts/view/jquery-carousel-plugin
  *
@@ -34,7 +36,10 @@ if (typeof Object.create !== 'function') {
 			pagination: true,
 			nextPrevLinks: true,
 			speed: 'normal',
-			easing: 'swing'
+            easing: 'swing',
+            itemChanged: function () { },
+            prevText: "Prev",
+            nextText: "Next"
 		},
 		init: function(el, options) {
 			if (!el.length) {return false;}
@@ -43,6 +48,7 @@ if (typeof Object.create !== 'function') {
 			this.container = el;
 			this.runner = this.container.find('ul');
 			this.items = this.runner.children('li');
+			this.items.first().addClass("carousel-current");
 			this.noOfItems = this.items.length;
 			this.setRunnerWidth();
 			if (this.noOfItems <= this.options.itemsPerPage) {return false;} // bail if there are too few items to paginate
@@ -73,6 +79,7 @@ if (typeof Object.create !== 'function') {
 				links[i] = '<li><a href="#item-' + i + '">' + (i + 1) + '</a></li>';
 			}
 			this.paginationLinks
+.append('<li>Jump to page:</li>')
 				.append(links.join(''))
 				.appendTo(this.container)
 				.find('a')
@@ -84,10 +91,12 @@ if (typeof Object.create !== 'function') {
 			return false;
 		},
 		insertNextPrevLinks: function() {
-			this.prevLink = $('<a href="#" class="prev">Prev</a>')
+            this.prevLink = $('<a href="#" class="prev"></a>')
+                                .text(this.options.prevText)
 								.bind('click.carousel', $.proxy(this, 'prevItem'))
 								.appendTo(this.container);
-			this.nextLink = $('<a href="#" class="next">Next</a>')
+            this.nextLink = $('<a href="#" class="next"></a>')
+                                .text(this.options.nextText)
 								.bind('click.carousel', $.proxy(this, 'nextItem'))
 								.appendTo(this.container);
 		},
@@ -132,6 +141,8 @@ if (typeof Object.create !== 'function') {
 				this.itemIndex = 0; // go to first
 			}
 			nextItem = this.items.eq(this.itemIndex);
+			this.items.removeClass("carousel-current");
+			nextItem.addClass("carousel-current");
 			pos = nextItem.position();
 			
 			if (headache) {
@@ -145,6 +156,7 @@ if (typeof Object.create !== 'function') {
 					.animate({scrollLeft: pos.left}, this.options.speed, this.options.easing);
 			}
 			this.updateBtnStyles();
+            this.options.itemChanged.call($(nextItem[0]));
 		}
 	};
 
@@ -155,5 +167,6 @@ if (typeof Object.create !== 'function') {
 			obj.init($(this), options);
 			$.data(this, 'carousel', obj);
 		});
+
 	};
 })(jQuery);
