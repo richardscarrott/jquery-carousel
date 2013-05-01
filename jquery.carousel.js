@@ -1,4 +1,6 @@
 /*
+ * FORKED VERSION - Tom Halligan
+ *	
  * jQuery Carousel Plugin v1.0
  * http://richardscarrott.co.uk/posts/view/jquery-carousel-plugin
  *
@@ -34,7 +36,8 @@ if (typeof Object.create !== 'function') {
 			pagination: true,
 			nextPrevLinks: true,
 			speed: 'normal',
-			easing: 'swing'
+            easing: 'swing',
+            itemChanged: function(){}
 		},
 		init: function(el, options) {
 			if (!el.length) {return false;}
@@ -73,6 +76,7 @@ if (typeof Object.create !== 'function') {
 				links[i] = '<li><a href="#item-' + i + '">' + (i + 1) + '</a></li>';
 			}
 			this.paginationLinks
+.append('<li>Jump to page:</li>')
 				.append(links.join(''))
 				.appendTo(this.container)
 				.find('a')
@@ -84,10 +88,10 @@ if (typeof Object.create !== 'function') {
 			return false;
 		},
 		insertNextPrevLinks: function() {
-			this.prevLink = $('<a href="#" class="prev">Prev</a>')
+            this.prevLink = $('<a href="#" class="prev"></a>')
 								.bind('click.carousel', $.proxy(this, 'prevItem'))
 								.appendTo(this.container);
-			this.nextLink = $('<a href="#" class="next">Next</a>')
+            this.nextLink = $('<a href="#" class="next"></a>')
 								.bind('click.carousel', $.proxy(this, 'nextItem'))
 								.appendTo(this.container);
 		},
@@ -101,6 +105,16 @@ if (typeof Object.create !== 'function') {
 			this.animate();
 			return false;
 		},
+        checkForEnd: function () {
+            if (this.options.nextPrevLinks) {
+                if (this.itemIndex === (this.noOfItems - this.options.itemsPerPage)) {
+                    alert("THIS IS THE END!");
+                }
+                else if (this.itemIndex === 0) {
+                    alert("NO MORE! NO MORE!");
+                }
+            }
+        },
 		updateBtnStyles: function() {
 			if (this.options.pagination) {
 				this.paginationLinks
@@ -145,6 +159,7 @@ if (typeof Object.create !== 'function') {
 					.animate({scrollLeft: pos.left}, this.options.speed, this.options.easing);
 			}
 			this.updateBtnStyles();
+            this.options.itemChanged.call($(nextItem[0]));
 		}
 	};
 
@@ -155,5 +170,6 @@ if (typeof Object.create !== 'function') {
 			obj.init($(this), options);
 			$.data(this, 'carousel', obj);
 		});
+
 	};
 })(jQuery);
