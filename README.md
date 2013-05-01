@@ -1,9 +1,7 @@
 Overview
 --------
 
-A modified version of Richard Scarrot's tidy jQuery Carousel plugin. This version allows us to bind to an itemChanged event.
-
-Note that there may be some bugs introduced in this version due to to project specific requirements. If you need access to an itemChanged event, I would recommend simply modifying Richard's original source rather than using this version as there have been some minor 'destructive' changes in this version.
+A modified version of Richard Scarrot's tidy jQuery Carousel plugin. This version allows us to bind to an itemChanged event and specify the next / previous button text.
 
 This is the basic HTML structure required:
 ------------------------------------------
@@ -84,7 +82,9 @@ You can pass in any number of options from the following defaults:
         pagination: true, // whether pagination links will be included
         speed: 'normal', // animation speed
         easing: 'swing' // supports the jQuery easing plugin
-        itemChanged: function(item){} //Bind to the itemChanged event
+        itemChanged: function(){} //Bind to the itemChanged event
+        prevText: "Previous", //Specify the text for the Previous button
+        nextText: "Next", //Specify the text for the Next button
     }
 
 The plugin supports multiple carousels on a single page and maintains jQuery's chainability so usage should feel pretty familiar but if you do become stuck see the demo or leave me a message.
