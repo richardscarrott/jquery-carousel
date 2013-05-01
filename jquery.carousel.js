@@ -46,6 +46,7 @@ if (typeof Object.create !== 'function') {
 			this.container = el;
 			this.runner = this.container.find('ul');
 			this.items = this.runner.children('li');
+			this.items.first().addClass("carousel-current");
 			this.noOfItems = this.items.length;
 			this.setRunnerWidth();
 			if (this.noOfItems <= this.options.itemsPerPage) {return false;} // bail if there are too few items to paginate
@@ -146,6 +147,8 @@ if (typeof Object.create !== 'function') {
 				this.itemIndex = 0; // go to first
 			}
 			nextItem = this.items.eq(this.itemIndex);
+			this.items.removeClass("carousel-current");
+			nextItem.addClass("carousel-current");
 			pos = nextItem.position();
 			
 			if (headache) {
